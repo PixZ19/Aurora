@@ -86,7 +86,7 @@ VirtualInputManager = game:service("VirtualInputManager")
 VirtualUser = game:service("VirtualUser")
 CoreGui = game:GetService("CoreGui")
 TempTable = {}
-task["spawn"](function()
+coroutine.wrap(function()
         if (getgenv())["Configs"] and (getgenv())["Configs"]["FPS Booster"] then
                 ReplicatedStorage["Effect"]:Destroy()
                 for idx, val in pairs(getconnections(LocalPlayer["PlayerGui"]["Main"]["Settings"]["Buttons"]["FastModeButton"]["Activated"])) do
@@ -95,9 +95,9 @@ task["spawn"](function()
                         info1[3]["Function"]()
                 end
         end
-end)
+end)()
 wait(2)
-task["spawn"](function()
+coroutine.wrap(function()
         if (getgenv())["Configs"]["FPS Booster"] then
                 local vars1 = {}
                 vars1[3] = Workspace:WaitForChild("Enemies")
@@ -252,7 +252,7 @@ task["spawn"](function()
                 end
                 shared["BC_2"] = true
         end
-end)
+end)()
 VoiceChatService = game:GetService("CoreGui")
 Character = game:GetService("TweenService")
 if VoiceChatService:FindFirstChild("Status_UI") then
@@ -262,7 +262,7 @@ RunService = Instance["new"]("ScreenGui")
 RunService["Name"] = "Status_UI"
 RunService["ResetOnSpawn"] = false
 RunService["Parent"] = VoiceChatService
-local STATUS_LOGO = "https://files.catbox.moe/t7arln.jpeg"
+local STATUS_LOGO = "https://raw.githubusercontent.com/PixZ19/Aurora/refs/heads/main/Assets/2026240065503498240.jpg"
 SoundService = Instance["new"]("Frame")
 SoundService["Size"] = UDim2["new"](0, 280, 0, 55)
 SoundService["Position"] = UDim2["new"](.5, 0, .05, 0)
@@ -317,8 +317,8 @@ Backpack["Font"] = Enum["Font"]["GothamSemibold"]
 Backpack["TextXAlignment"] = Enum["TextXAlignment"]["Left"]
 Backpack["TextYAlignment"] = Enum["TextYAlignment"]["Center"]
 Backpack["Parent"] = SoundService
-task["spawn"](function()
-        while task["wait"]() do
+coroutine.wrap(function()
+        while wait() do
                 local cache2 = {}
                 cache2[4] = Character:Create(TweenService, TweenInfo["new"](1.2, Enum["EasingStyle"]["Quad"], Enum["EasingDirection"]["Out"]), {
                         ["Color"] = Color3["fromRGB"](180, 100, 255)
@@ -347,13 +347,13 @@ task["spawn"](function()
                 cache2[7]:Play()
                 cache2[5]["Completed"]:Wait()
         end
-end)
+end)()
 
 
 local AuroraTweenService = game:GetService("TweenService")
 local AuroraUserInputService = game:GetService("UserInputService")
 
-local LOGO_URL = "https://files.catbox.moe/t7arln.jpeg"
+local LOGO_URL = "https://raw.githubusercontent.com/PixZ19/Aurora/refs/heads/main/Assets/2026240065503498240.jpg"
 
 -- Toast Notification System
 local AuroraToastUI = Instance.new("ScreenGui")
@@ -435,14 +435,15 @@ local function CreateToast(title, message, toastType)
     iconLabel.AnchorPoint = Vector2.new(0.5, 0.5)
     iconLabel.BackgroundTransparency = 1
     iconLabel.Image = LOGO_URL
+    -- All icons now use the custom logo
     if toastType == "success" then
-        iconLabel.Image = "rbxassetid://7733964719"
+        iconLabel.Image = LOGO_URL
     elseif toastType == "warning" then
-        iconLabel.Image = "rbxassetid://7733889044"
+        iconLabel.Image = LOGO_URL
     elseif toastType == "info" then
-        iconLabel.Image = "rbxassetid://7733885158"
+        iconLabel.Image = LOGO_URL
     elseif toastType == "level" then
-        iconLabel.Image = "rbxassetid://7734055681"
+        iconLabel.Image = LOGO_URL
     end
     iconLabel.ImageColor3 = Color3.fromRGB(255, 255, 255)
     iconLabel.Parent = iconFrame
@@ -482,7 +483,7 @@ local function CreateToast(title, message, toastType)
     
     table.insert(AuroraActiveToasts, toastFrame)
     
-    task.delay(3.5, function()
+    delay(3.5, function()
         local tweenOut = AuroraTweenService:Create(toastFrame, TweenInfo.new(0.3, Enum.EasingStyle.Quart, Enum.EasingDirection.In), {
             Position = UDim2.new(1, 50, 0, 0),
             BackgroundTransparency = 1
@@ -496,7 +497,7 @@ local function CreateToast(title, message, toastType)
                 break
             end
         end
-    end)
+    end)()
 end
 
 local lastBeli = 0
@@ -537,7 +538,7 @@ AuroraToggleGlow.Size = UDim2.new(1.3, 0, 1.3, 0)
 AuroraToggleGlow.Position = UDim2.new(0.5, 0, 0.5, 0)
 AuroraToggleGlow.AnchorPoint = Vector2.new(0.5, 0.5)
 AuroraToggleGlow.BackgroundTransparency = 1
-AuroraToggleGlow.Image = "rbxassetid://6014261993"
+AuroraToggleGlow.Image = LOGO_URL
 AuroraToggleGlow.ImageColor3 = Color3.fromRGB(138, 43, 226)
 AuroraToggleGlow.ImageTransparency = 0.8
 AuroraToggleGlow.ScaleType = Enum.ScaleType.Slice
@@ -597,7 +598,7 @@ AuroraStatsGlow.Size = UDim2.new(1.2, 0, 1.2, 0)
 AuroraStatsGlow.Position = UDim2.new(0.5, 0, 0.5, 0)
 AuroraStatsGlow.AnchorPoint = Vector2.new(0.5, 0.5)
 AuroraStatsGlow.BackgroundTransparency = 1
-AuroraStatsGlow.Image = "rbxassetid://6014261993"
+AuroraStatsGlow.Image = LOGO_URL
 AuroraStatsGlow.ImageColor3 = Color3.fromRGB(138, 43, 226)
 AuroraStatsGlow.ImageTransparency = 0.88
 AuroraStatsGlow.ScaleType = Enum.ScaleType.Slice
@@ -892,7 +893,7 @@ local function AuroraOpenStats()
         BackgroundTransparency = 1
     }):Play()
     
-    task.wait(0.2)
+    wait(0.2)
     AuroraToggleFrame.Visible = false
 end
 
@@ -904,7 +905,7 @@ local function AuroraCloseStats()
         BackgroundTransparency = 1
     }):Play()
     
-    task.wait(0.25)
+    wait(0.25)
     AuroraStatsFrame.Visible = false
     AuroraToggleFrame.Visible = true
     AuroraToggleFrame.BackgroundTransparency = 0.2
@@ -914,25 +915,25 @@ AuroraToggleHit.MouseButton1Click:Connect(function()
     if not AuroraIsOpen then
         AuroraOpenStats()
     end
-end)
+end)()
 
 AuroraCloseButton.MouseButton1Click:Connect(function()
     if AuroraIsOpen then
         AuroraCloseStats()
     end
-end)
+end)()
 
 AuroraToggleHit.MouseEnter:Connect(function()
     AuroraTweenService:Create(AuroraToggleStroke, TweenInfo.new(0.2), {
         Color = Color3.fromRGB(180, 100, 255)
     }):Play()
-end)
+end)()
 
 AuroraToggleHit.MouseLeave:Connect(function()
     AuroraTweenService:Create(AuroraToggleStroke, TweenInfo.new(0.2), {
         Color = Color3.fromRGB(138, 43, 226)
     }):Play()
-end)
+end)()
 
 -- Dragging for Mobile
 local AuroraDragging = false
@@ -944,13 +945,13 @@ AuroraToggleFrame.InputBegan:Connect(function(input)
         AuroraDragStart = input.Position
         AuroraDragPos = AuroraToggleFrame.Position
     end
-end)
+end)()
 
 AuroraToggleFrame.InputEnded:Connect(function(input)
     if input.UserInputType == Enum.UserInputType.MouseButton1 or input.UserInputType == Enum.UserInputType.Touch then
         AuroraDragging = false
     end
-end)
+end)()
 
 AuroraUserInputService.InputChanged:Connect(function(input)
     if AuroraDragging and (input.UserInputType == Enum.UserInputType.MouseMovement or input.UserInputType == Enum.UserInputType.Touch) then
@@ -960,7 +961,7 @@ AuroraUserInputService.InputChanged:Connect(function(input)
             AuroraDragPos.Y.Scale, AuroraDragPos.Y.Offset + delta.Y
         )
     end
-end)
+end)()
 
 local function AuroraFormatNumber(num)
     if num >= 1e9 then
@@ -1055,13 +1056,13 @@ local function AuroraUpdateStats()
     end
 end
 
-task.spawn(function()
-    while task.wait(2) do
+coroutine.wrap(function()
+    while wait(2) do
         pcall(AuroraUpdateStats)
     end
-end)
+end)()
 
-task.spawn(function()
+coroutine.wrap(function()
     local colors = {
         Color3.fromRGB(138, 43, 226),
         Color3.fromRGB(170, 60, 245),
@@ -1069,7 +1070,7 @@ task.spawn(function()
         Color3.fromRGB(210, 120, 240)
     }
     local idx = 1
-    while task.wait(0.5) do
+    while wait(0.5) do
         if AuroraStatsFrame.Visible then
             AuroraTweenService:Create(AuroraStatsStroke, TweenInfo.new(0.4), {
                 Color = colors[idx]
@@ -1077,21 +1078,21 @@ task.spawn(function()
             idx = idx % #colors + 1
         end
     end
-end)
+end)()
 
-task.spawn(function()
-    while task.wait(1.2) do
+coroutine.wrap(function()
+    while wait(1.2) do
         if not AuroraIsOpen then
             AuroraTweenService:Create(AuroraToggleGlow, TweenInfo.new(0.7, Enum.EasingStyle.Quad), {
                 ImageTransparency = 0.5
             }):Play()
-            task.wait(0.7)
+            wait(0.7)
             AuroraTweenService:Create(AuroraToggleGlow, TweenInfo.new(0.7, Enum.EasingStyle.Quad), {
                 ImageTransparency = 0.88
             }):Play()
         end
     end
-end)
+end)()
 
 
 if PlaceId == 2753915549 then
@@ -2966,7 +2967,7 @@ setmetatable(TempTable, {
                         return function(arg1)
                                 local temp4 = {}
                                 temp4[2] = arg1
-                                return task["wait"](temp4[2])
+                                return wait(temp4[2])
                         end
                 elseif vars4[3] == "p" then
                         return function(...)
@@ -3176,7 +3177,7 @@ setmetatable(TempTable, {
                                         end
                                         ticklon = tick()
                                         repeat
-                                                task["wait"]()
+                                                wait()
                                         until tick() - ticklon >= 1
                                         cache7[1] = function()
                                                 for idx = 1, math["huge"], 1 do
@@ -3228,7 +3229,7 @@ setmetatable(TempTable, {
                                                 game["CoreGui"]["RobloxPromptGui"]["promptOverlay"]["ChildAdded"]:Connect(data8[1]);
                                                 (getgenv())["Loaded"] = true
                                         end
-                                        while task["wait"](.1) do
+                                        while wait(.1) do
                                                 cache7[1]()
                                         end
                                 end)
@@ -3477,8 +3478,8 @@ Team = game:GetService("Workspace")
 StarterGui = {}
 StarterGui["__index"] = StarterGui
 ContextActionService = PlayerGui["LocalPlayer"]
-task["spawn"](function()
-        while task["wait"](.5) do
+coroutine.wrap(function()
+        while wait(.5) do
                 TempTable["p"](function()
                         if MarketplaceService["Data"]["Points"]["Value"] > 0 and MarketplaceService["Data"]["Stats"]["Melee"]["Level"]["Value"] < 2650 then
                                 PathfindingService["Remotes"]["CommF_"]:InvokeServer("AddPoint", "Melee", MarketplaceService["Data"]["Points"]["Value"])
@@ -3494,8 +3495,8 @@ task["spawn"](function()
 end);
 (getgenv())["Fast Attack"] = true
 Tween = 0
-task["spawn"](function()
-        while task["wait"](Tween) do
+coroutine.wrap(function()
+        while wait(Tween) do
                 if (getgenv())["Fast Attack"] and not Stop_Fast_Attack then
                         if TempTable["sf"](MarketplaceService["PlayerGui"]["Main"]["Version"]["Text"], "v26.6.1") then
                                 xpcall(function()
@@ -3641,7 +3642,7 @@ task["spawn"](function()
                         end
                 end
         end
-end)
+end)()
 for idx, val in pairs(ReplicatedStorage["Remotes"]["CommF_"]:InvokeServer("getInventory")) do
         local tmp12 = {}
         tmp12[1], tmp12[3] = idx, val
@@ -3747,14 +3748,14 @@ TestService = function()
                                                                 ReplicatedStorage["Remotes"]["CommF_"]:InvokeServer("TushitaProgress", "Torch", cache12[1])
                                                         end
                                                 elseif ReplicatedStorage:FindFirstChild("rip_indra True Form") or Enemies:FindFirstChild("rip_indra True Form") then
-                                                        task["spawn"](function()
+                                                        coroutine.wrap(function()
                                                                 repeat
                                                                         TempTable["wt"]()
                                                                         VirtualInputManager:SendKeyEvent(true, "Space", false, game)
                                                                         TempTable["wt"](.3)
                                                                         VirtualInputManager:SendKeyEvent(false, "Space", false, game)
                                                                 until MarketplaceService["Backpack"]:FindFirstChild("Holy Torch") or MarketplaceService["Character"]:FindFirstChild("Holy Torch") or not ReplicatedStorage:FindFirstChild("rip_indra True Form") and not Enemies:FindFirstChild("rip_indra True Form")
-                                                        end)
+                                                        end)()
                                                         repeat
                                                                 TempTable["wt"]()
                                                                 MarketplaceService["Character"]["HumanoidRootPart"]["CFrame"] = CFrame["new"](5714, 19, 254)
@@ -4333,7 +4334,7 @@ Chat = function()
 end
 _G["Ew"] = true
 Ewx = true
-task["spawn"](function()
+coroutine.wrap(function()
         while TempTable["wt"]() do
                 if _G["Ew"] then
                         StatsGui()
@@ -4346,8 +4347,8 @@ task["spawn"](function()
                         end
                 end
         end
-end)
-task["spawn"](function()
+end)()
+coroutine.wrap(function()
         while TempTable["wt"](1) do
                 xpcall(function()
                         if not Black_Leg_C then
@@ -4396,7 +4397,7 @@ task["spawn"](function()
                         if not Fishman_Karate_C_M then
                                 repeat
                                         local store16 = {}
-                                        task["wait"](TweenInfoData)
+                                        wait(TweenInfoData)
                                         StatsGui()
                                         ReplicatedStorage["Remotes"]["CommF_"]:InvokeServer("BuyFishmanKarate")
                                         store16[2] = MarketplaceService["Character"]:FindFirstChild("Fishman Karate")
@@ -4419,7 +4420,7 @@ task["spawn"](function()
                                 end
                         end
                         repeat
-                                task["wait"](TweenInfoData)
+                                wait(TweenInfoData)
                                 StatsGui()
                                 if not Super_human then
                                         if Dragon_Claw_C then
@@ -4449,7 +4450,7 @@ task["spawn"](function()
                         if Black_Leg_C_M then
                                 repeat
                                         local info17 = {}
-                                        task["wait"](TweenInfoData)
+                                        wait(TweenInfoData)
                                         StatsGui()
                                         info17[1] = MarketplaceService["Character"]:FindFirstChild("Death Step")
                                         if info17[1] and (info17[1]:FindFirstChild("Level") and info17[1]["Level"]["Value"] >= 400) then
@@ -4465,7 +4466,7 @@ task["spawn"](function()
                         if not Death_Step_C_M then
                                 repeat
                                         local temp17 = {}
-                                        task["wait"](TweenInfoData)
+                                        wait(TweenInfoData)
                                         StatsGui()
                                         ReplicatedStorage["Remotes"]["CommF_"]:InvokeServer("BuyDeathStep")
                                         temp17[1] = MarketplaceService["Character"]:FindFirstChild("Death Step")
@@ -4477,7 +4478,7 @@ task["spawn"](function()
                         if not Electro_C_M then
                                 repeat
                                         local state17 = {}
-                                        task["wait"](TweenInfoData)
+                                        wait(TweenInfoData)
                                         StatsGui()
                                         ReplicatedStorage["Remotes"]["CommF_"]:InvokeServer("BuyElectro")
                                         state17[1] = MarketplaceService["Character"]:FindFirstChild("Electro")
@@ -4489,7 +4490,7 @@ task["spawn"](function()
                         if not Fishman_Karate_C_M then
                                 repeat
                                         local cache17 = {}
-                                        task["wait"](TweenInfoData)
+                                        wait(TweenInfoData)
                                         ReplicatedStorage["Remotes"]["CommF_"]:InvokeServer("BuyFishmanKarate")
                                         warn()
                                         cache17[1] = MarketplaceService["Character"]:FindFirstChild("Fishman Karate")
@@ -4501,7 +4502,7 @@ task["spawn"](function()
                         if not Dragon_Claw_C_M then
                                 repeat
                                         local store17 = {}
-                                        task["wait"](TweenInfoData)
+                                        wait(TweenInfoData)
                                         StatsGui()
                                         ReplicatedStorage["Remotes"]["CommF_"]:InvokeServer("BlackbeardReward", "DragonClaw", "2")
                                         store17[1] = MarketplaceService["Character"]:FindFirstChild("Dragon Claw")
@@ -4523,7 +4524,7 @@ task["spawn"](function()
                         if not Sharkman_Karate_C_M then
                                 repeat
                                         local tmp18 = {}
-                                        task["wait"](TweenInfoData)
+                                        wait(TweenInfoData)
                                         StatsGui()
                                         ReplicatedStorage["Remotes"]["CommF_"]:InvokeServer("BuySharkmanKarate")
                                         tmp18[1] = MarketplaceService["Character"]:FindFirstChild("Sharkman Karate")
@@ -4534,7 +4535,7 @@ task["spawn"](function()
                         end
                         if not Electric_Claw_C then
                                 repeat
-                                        task["wait"](TweenInfoData)
+                                        wait(TweenInfoData)
                                         if ReplicatedStorage["Remotes"]["CommF_"]:InvokeServer("BuyElectricClaw") == 1 or ReplicatedStorage["Remotes"]["CommF_"]:InvokeServer("BuyElectricClaw") == 2 then
                                                 Electric_Claw_C = true
                                         end
@@ -4543,7 +4544,7 @@ task["spawn"](function()
                         if not Electric_Claw_C_M then
                                 repeat
                                         local data18 = {}
-                                        task["wait"](TweenInfoData)
+                                        wait(TweenInfoData)
                                         StatsGui()
                                         ReplicatedStorage["Remotes"]["CommF_"]:InvokeServer("BuyElectricClaw")
                                         data18[2] = MarketplaceService["Character"]:FindFirstChild("Electric Claw")
@@ -4554,7 +4555,7 @@ task["spawn"](function()
                         end
                         if not Dragon_Talon_C then
                                 repeat
-                                        task["wait"](TweenInfoData)
+                                        wait(TweenInfoData)
                                         if ReplicatedStorage["Remotes"]["CommF_"]:InvokeServer("BuyDragonTalon") == 1 or ReplicatedStorage["Remotes"]["CommF_"]:InvokeServer("BuyDragonTalon") == 2 then
                                                 Dragon_Talon_C = true
                                         end
@@ -4563,7 +4564,7 @@ task["spawn"](function()
                         if not Dragon_Talon_C_M then
                                 repeat
                                         local info18 = {}
-                                        task["wait"](TweenInfoData)
+                                        wait(TweenInfoData)
                                         StatsGui()
                                         ReplicatedStorage["Remotes"]["CommF_"]:InvokeServer("BuyDragonTalon")
                                         info18[1] = MarketplaceService["Character"]:FindFirstChild("Dragon Talon")
@@ -4574,7 +4575,7 @@ task["spawn"](function()
                         end
                         if not God_Human_C then
                                 repeat
-                                        task["wait"](TweenInfoData)
+                                        wait(TweenInfoData)
                                         if ReplicatedStorage["Remotes"]["CommF_"]:InvokeServer("BuyGodhuman") == 1 or ReplicatedStorage["Remotes"]["CommF_"]:InvokeServer("BuyGodhuman") == 2 then
                                                 God_Human_C = true
                                         end
@@ -4583,7 +4584,7 @@ task["spawn"](function()
                         if not God_Human_C_M then
                                 repeat
                                         local vars18 = {}
-                                        task["wait"](TweenInfoData)
+                                        wait(TweenInfoData)
                                         StatsGui()
                                         ReplicatedStorage["Remotes"]["CommF_"]:InvokeServer("BuyGodhuman")
                                         vars18[2] = MarketplaceService["Character"]:FindFirstChild("Godhuman")
@@ -4629,7 +4630,7 @@ ChangeHistoryService = function()
         end
         return false
 end
-task["spawn"](function()
+coroutine.wrap(function()
         while TempTable["wt"]() do
                 xpcall(function()
                         if (getgenv())["AutoFarm"] then
@@ -6277,8 +6278,8 @@ task["spawn"](function()
                         end
                 end, warn)
         end
-end)
-task["spawn"](function()
+end)()
+coroutine.wrap(function()
         while TempTable["wt"]() do
                 xpcall(function()
                         if Quest ~= nil then
@@ -6909,7 +6910,7 @@ task["spawn"](function()
                                                                 info30[1], info30[2] = idx, val
                                                                 if info30[2]["Name"] == "Tide Keeper" and (info30[2]:FindFirstChild("Humanoid") and (info30[2]:FindFirstChild("Humanoid"))["Health"] > 0) then
                                                                         repeat
-                                                                                task["wait"]()
+                                                                                wait()
                                                                                 RemoteFunction(info30[2]["HumanoidRootPart"]["CFrame"] * CFrame["new"](0, 30, 0), 1.5)
                                                                                 if not TempTable["ffc"](MarketplaceService["Character"], "HasBuso") then
                                                                                         ReplicatedStorage["Remotes"]["CommF_"]:InvokeServer("Buso")
@@ -7819,7 +7820,7 @@ task["spawn"](function()
                                                         local store34 = {}
                                                         store34[1] = ((game:GetService("Workspace"))["Map"]:FindFirstChild("MysticIsland"))["WorldPivot"] * CFrame["new"](0, 500, 0)
                                                         if (store34[1]["Position"] - MarketplaceService["Character"]["HumanoidRootPart"]["Position"])["Magnitude"] <= 25 then
-                                                                task["spawn"](function()
+                                                                coroutine.wrap(function()
                                                                         repeat
                                                                                 wait(.2)
                                                                                 Workspace["CurrentCamera"]["CFrame"] = CFrame["lookAt"](Workspace["CurrentCamera"]["CFrame"]["Position"], Lighting:GetMoonDirection() + Workspace["CurrentCamera"]["CFrame"]["Position"])
@@ -8250,8 +8251,8 @@ task["spawn"](function()
                         end
                 end, warn)
         end
-end)
-task["spawn"](function()
+end)()
+coroutine.wrap(function()
         while TempTable["wt"]() do
                 xpcall(function()
                         for idx, val in pairs(Enemies:GetChildren()) do
@@ -8283,8 +8284,8 @@ task["spawn"](function()
                         end
                 end, warn)
         end
-end)
-task["spawn"](function()
+end)()
+coroutine.wrap(function()
         while TempTable["wt"](1) do
                 pcall(function()
                         if not TempTable["ffc"](MarketplaceService["Character"], "Highlight") then
@@ -8300,7 +8301,7 @@ task["spawn"](function()
                         end
                 end)
         end
-end)
+end)()
 redeem = {
         "Sub2Fer999",
         "Enyu_is_Pro",
@@ -8330,36 +8331,36 @@ redeem = {
         "DRAGONABUSE ";
         "DEVSCOOKING "
 }
-task["spawn"](function()
+coroutine.wrap(function()
         for idx, val in pairs(redeem) do
                 local data37 = {}
                 data37[2], data37[1] = idx, val
                 PathfindingService["Remotes"]["Redeem"]:InvokeServer(data37[1])
         end
-end)
-task["spawn"](function()
+end)()
+coroutine.wrap(function()
         while TempTable["wt"](150) do
                 VirtualInputManager:SendKeyEvent(true, "Space", false, game)
                 wait(.5)
                 VirtualInputManager:SendKeyEvent(false, "Space", false, game)
         end
-end)
+end)()
 RootPart = game:GetService("Players")
 DataStoreService = RootPart["LocalPlayer"]
 TextChatService = function()
         while not DataStoreService["Character"] or not DataStoreService["Character"]:FindFirstChild("HumanoidRootPart") do
-                task["wait"](.5)
+                wait(.5)
         end
         return DataStoreService["Character"]:WaitForChild("HumanoidRootPart")
 end
 HttpService = (TextChatService())["Position"]
 Leaderstats = 0
 GroupService = 1
-task["spawn"](function()
-        while task["wait"]() do
+coroutine.wrap(function()
+        while wait() do
                 if Quest ~= "Cursed Dual Katana" and (Quest ~= "Evo Race V2" and (Quest ~= "Evo Race V1" and not SROP)) then
                         local info37 = {}
-                        task["wait"](GroupService)
+                        wait(GroupService)
                         info37[2] = (TextChatService())["Position"]
                         info37[1] = (info37[2] - HttpService)["Magnitude"]
                         if info37[1] <= 1 then
@@ -8373,9 +8374,9 @@ task["spawn"](function()
                         end
                 end
         end
-end)
-task["spawn"](function()
-        while task["wait"]() do
+end)()
+coroutine.wrap(function()
+        while wait() do
                 if Team["Map"]:FindFirstChild("Heavenly") then
                         fireproximityprompt(Team["Map"]["HeavenlyDimension"]["Torch1"]["ProximityPrompt"])
                         fireproximityprompt(Team["Map"]["HeavenlyDimension"]["Torch2"]["ProximityPrompt"])
@@ -8387,10 +8388,10 @@ task["spawn"](function()
                         fireproximityprompt(Team["Map"]["HellDimension"]["Torch3"]["ProximityPrompt"])
                 end
         end
-end)
+end)()
 DataStoreService["PlayerGui"]["Notifications"]["Enabled"] = false
-task["spawn"](function()
-        while task["wait"]() do
+coroutine.wrap(function()
+        while wait() do
                 pcall(function()
                         if not(game:GetService("Players"))["LocalPlayer"]["Character"]["HumanoidRootPart"]:FindFirstChild("Lock") then
                                 local vars37 = {}
@@ -8405,11 +8406,11 @@ task["spawn"](function()
                         end
                 end)
         end
-end)
+end)()
 TempTable["wt"](5)
 _G["Ew"] = false
 Ewx = false
-task["spawn"](function()
+coroutine.wrap(function()
         while TempTable["wt"]() do
                 pcall(function()
                         if Beli["Value"] >= 2500000 and New_World then
@@ -8480,4 +8481,4 @@ task["spawn"](function()
                         TempTable["wt"](100)
                 end)
         end
-end)
+end)()
